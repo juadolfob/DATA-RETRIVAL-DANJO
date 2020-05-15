@@ -103,6 +103,43 @@
             width: 100%;
             }
             }
+            /* DivTable.com */
+            .divTable{
+            display: table;
+            width: 100%;
+            }
+            .divTableRow {
+            display: table-row;
+            }
+            .divTableHeading {
+            background-color: #EEE;
+            display: table-header-group;
+            }
+            .divTableCell, .divTableHead {
+            display: table-cell;
+            padding: 3px 10px;
+            }
+            .divTableHeading {
+            background-color: #EEE;
+            display: table-header-group;
+            font-weight: bold;
+            }
+            .divTableFoot {
+            background-color: #EEE;
+            display: table-footer-group;
+            font-weight: bold;
+            }
+            .divTableBody {
+            display: table-row-group;
+            }
+            .resize {
+            width: 200px;
+            height: auto;
+            }
+            .resize {
+            width: 150;
+            height: auto;
+            }
         </style>
     </head>
     <body>
@@ -121,7 +158,7 @@
                 <h3>About Us</h3>
                 <h5></h5>
                 <!--<div class="fakeimg" style="height:200px;">Image</div>-->
-                <p>Hola.</p>
+                <p>Juan Adolfo Bustillos Alatorre.</p>
                 <h3>People</h3>
                 <p>Juan Adolfo Bustillos Alatorre</p>
                 <!--
@@ -134,14 +171,26 @@
                 <h2>Movies</h2>
                 <h3>Enter your movie description here:</h3>
                 <form action="{% url 'movies:result'%}#result">
-                    <textarea name="movie_description" id="movie_description" rows="10" cols="37">The cat was playing in the garden.</textarea>
+                    <textarea name="movie_description" id="movie_description" rows="10" cols="37">
+                    The cat was playing in the garden.</textarea>
                     <br>
                     <input type="submit" value="Submit">
                 </form>
+                <h3 id="result">Result:</h3>
+                <div class="divTable">
+                    <div class="divTableBody">
+                        {% for result in results %} 
+                        <div class="divTableRow">
+                            <div class="divTableCell">&nbsp;{{result.movie_name|safe}}</div>
+                            <div class="divTableCell">{{result.movie_image|safe}}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="footer">
-            <h2>Footer</h2>
+            <div class="footer">
+                <h2>Footer</h2>
+            </div>
         </div>
     </body>
 </html>

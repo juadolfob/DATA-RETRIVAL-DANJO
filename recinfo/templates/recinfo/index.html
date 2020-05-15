@@ -111,17 +111,17 @@
             <p>Data Retrival Project</p>
         </div>
         <div class="navbar">
-            <a href="/" class="active">Home</a>
+            <a href="#" class="active">Home</a>
             <a href="#">Link</a>
             <a href="#">Link</a>
             <a href="#" class="right">Link</a>
         </div>
         <div class="row">
             <div class="side">
-                <h3>About Us</h3>
+                <h2>About Us</h2>
                 <h5></h5>
                 <!--<div class="fakeimg" style="height:200px;">Image</div>-->
-                <p>Hola.</p>
+                <p>Juan Adolfo Bustillos Alatorre.</p>
                 <h3>People</h3>
                 <p>Juan Adolfo Bustillos Alatorre</p>
                 <!--
@@ -131,13 +131,18 @@
                     -->
             </div>
             <div class="main">
-                <h2>Movies</h2>
-                <h3>Enter your movie description here:</h3>
-                <form action="{% url 'movies:result'%}#result">
-                    <textarea name="movie_description" id="movie_description" rows="10" cols="37">The cat was playing in the garden.</textarea>
-                    <br>
-                    <input type="submit" value="Submit">
-                </form>
+                {% for app in apps%}
+                {% with app.name|add:":index" as href_url %}
+                <a href="{% url href_url %}">
+                {% endwith %}
+                    <h2>{{app.name}}</h2> 
+                </a>
+                <h5>{{app.description}}</h5>
+                <div class="fakeimg" style="height:200px;">{{app.image}}</div>
+                <p>{{app.image_caption}}</p>
+                <p>{{app.body}}</p>
+                <br>
+                 {% endfor %}
             </div>
         </div>
         <div class="footer">

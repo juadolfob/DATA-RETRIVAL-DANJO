@@ -25,13 +25,14 @@ SECRET_KEY = 'yjc1_n$+_^=crf0u5#&x1&6cvxuja5d(3&d+z4u=pw80$#-b5s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "192.168.1.3"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    
+    'movies.apps.MoviesConfig',
+    'index.apps.IndexConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,7 +56,7 @@ ROOT_URLCONF = 'recinfo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ["recinfo/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
