@@ -34,3 +34,7 @@ class scrapper():
 
         
         return filter_scrap
+    
+scrape=scrapper(['coronavirus'])
+result=scrape.simple_scrap()
+pprint(result)
