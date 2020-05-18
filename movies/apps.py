@@ -1,9 +1,8 @@
-from django.apps import AppConfig
-
+from django.apps import AppConfig 
 
 class MoviesConfig(AppConfig):
     name = 'movies'
-    description = 'Title description, Sep 2, 2017'
+    description = 'Title description, Dec 7, 2017'
     image = ''
     image_caption = 'image caption'
     body = """ Sunt in culpa qui officia deserunt mollit anim id est laborum
