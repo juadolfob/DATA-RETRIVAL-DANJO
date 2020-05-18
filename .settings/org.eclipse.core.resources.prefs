@@ -1,2 +1,3 @@
 eclipse.preferences.version=1
-encoding//index/scrapper/scrapper.py=utf-8
+encoding//tools/scrapper/scrapper.py=utf-8
+encoding//tools/textproc/text.py=utf-8
