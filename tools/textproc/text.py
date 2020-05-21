@@ -1,39 +1,34 @@
 import re
+
+from nltk import RegexpTokenizer
 from unidecode import unidecode
 from nltk.corpus import stopwords
-import nltk
+import string
 from nltk.tokenize import word_tokenize
+from nltk.tokenize.casual import _str_to_unicode
 
 
-class text():
-    
+class Text:
+
+    word = r"""[A-Za-z0-9]*[A-Za-z][A-Za-z0-9]*(?:(?:&|\-|_){0,1}[A-Za-z0-9]+)*"""
+
     @staticmethod
-    def alphabetic_normalize(text):
-        # remove links | VERY SLOW
-        # text = re.sub(
-        # r'''(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|\n[^\s`!()\[\]{};:'".,<>?«»“”‘’]))''',
-        # " ", text)
-        
-        # international alphabet to american alphabet
-        text = unidecode(text)
-        # lowercase
+    def normalize(text):
+        text = _str_to_unicode(text)
         text = text.lower()
-        # regex remove non alphabetic chars
-        # text = re.sub(r'[^a-z]+', ' ', text)
-        # regex remove single characters
-        # text = re.sub(r'((^|[ ]).)+( |$)', ' ', text)
-        # regex remove multiple spaces | whith word separator ' '
-        text = re.sub(r' +', ' ', text)
         return text
-    
+
     @staticmethod
-    def tokenize(text):
-        return word_tokenize(text)
-        
+    def tokenize_words(text):
+        tokenizer = RegexpTokenizer(Text.word)
+        return tokenizer.tokenize(text)
+
     @staticmethod
-    def remove_stopwords(_text):
-        word_tokens = text.tokenize(_text)
-        stop_words = set(stopwords.words('english')).union(set(stopwords.words('spanish')))
-        _text = [w for w in word_tokens if w not in stop_words] 
-        return _text
-    
+    def remove_stopwords(text):
+        if text is str:
+            return Text.remove_stopwords(Text.tokenize(text))
+        elif '__iter__' in dir(text):
+            stop_words = set(stopwords.words('english')).union(set(stopwords.words('spanish')))
+            return [word for word in text if word not in stop_words]
+        else:
+            raise TypeError("Using " + str(type(text)) + ", but only integers are allowed")

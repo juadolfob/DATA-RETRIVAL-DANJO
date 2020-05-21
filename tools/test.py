@@ -1,29 +1,35 @@
-from scrapper.scrapper import scrapper
-from textproc.text  import text
+from tools.scrapper.scrapper import scrapper
+from tools.textproc.text import Text
 from pprint import pprint
 from collections import Counter
 from collections import OrderedDict
+from tools.list.index import Index
 
 scrape = scrapper(['denticenter'])
 results = scrape.simple()
 
-lemma = ""
-indexed_words = {}
+indexed_words = Index()
+normalized_text = []
 
 for index, result in enumerate(results):
-    print(str(index) + " ")
-    normalized_body = text.alphabetic_normalize(result['body'])
-    print(str(index) + " NORMALIZED")
-    normalized_body = text.remove_stopwords(normalized_body)
-    print(str(index) + " STOP WORDS REMOVED")
-    results[index]['body'] = normalized_body
-    print(str(results[index]) + " Counting and Indexing")
-    result_index = dict(Counter(results[index]['body']))
-    print(result_index)
-    indexed_words = {k: indexed_words.get(k, 0) + result_index.get(k, 0) for k in set(indexed_words) | set(result_index)}
+    print(str(index) + "...")
+
+    ### ### ### TEXT                ### ### ###
+    body = Text.normalize(result['body'])
+
+    ### ### ### SENTIMENT ANALYSIS  ### ### ###
+
+
+
+    ### ### ### INDEX               ### ### ###
+
+    text = Text.remove_stopwords(Text.tokenize_words(body))
+
+    indexed_words.add(dict(Counter(text)))
+    print(text)
 
 print("FINISH")
 
-indexed_words = OrderedDict(sorted(indexed_words.items(), key=lambda kv:(kv[1]))) 
+indexed_words = OrderedDict(sorted(indexed_words.items(), key=lambda kv: (kv[1])))
 
-pprint(indexed_words)
+#pprint(indexed_words)

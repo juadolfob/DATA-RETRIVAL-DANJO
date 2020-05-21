@@ -11,7 +11,7 @@ def index(request):
 
 def result(request):
     url = "https://www.whatismymovie.com/results?"
-    html = requests.get(url,params={'text':request.GET['movie_description']}).text 
+    html = requests.get(url,params={'text':request.GET['movie_description']}).Text
     regex = r"<a\s*href=[\"']item\?item=[0-9]*[\"']>.*?<\/a>" 
     regex_image = r"src='"
     html = re.sub(regex_image, "class='resize' src='https://www.whatismymovie.com", html)

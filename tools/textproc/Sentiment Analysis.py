@@ -1,14 +1,18 @@
- #!/usr/bin/python3
- # -*- coding: utf-8 -*-
- 
 from textblob import TextBlob
 from textblob.sentiments import NaiveBayesAnalyzer
 import nltk
+from pprint import pprint
 
-text          = """Most cartoon characters have a deep mental subnormality, where behavior that is unnecessarily incorrect or idiotic is thrown at the screen as efforts of entertainment, and extreme levels of confidence and cheerfulness, do not do better, than diminishing it. The plot of these cartoons, exist only because of their protagonist beyond-belief idiocy.
-Idiocy should be painful, shameful, instead more times than it is desirable, it is portrayed as the best trait someone could have."""
+test          = """
+Spirit genuinely goes a long way for an ambitious indie like this, and Ovid and the Art of Love has it.
+"""
 
-sent          = TextBlob(text)
+class text_sentiment():
+
+    def __init__(self, text):
+        self.text = TextBlob(text)
+
+
 
 # The polarity score is a float within the range [-1.0, 1.0]
 # where negative value indicates negative text and positive
@@ -22,7 +26,9 @@ sent          = TextBlob(text, analyzer = NaiveBayesAnalyzer())
 classification= sent.sentiment.classification
 positive      = sent.sentiment.p_pos
 negative      = sent.sentiment.p_neg
-
+from unidecode import unidecode
+print("text:          ")
+pprint(unidecode(text))
 print("polarity:      ",polarity)
 print("subjectivity:  ",subjectivity)
 print("classification:",classification)
