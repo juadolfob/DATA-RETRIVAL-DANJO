@@ -3,7 +3,6 @@
 
 import serpscrap
 
-
 class scrapper():
     keywords = []
     scrap = []
@@ -22,7 +21,7 @@ class scrapper():
             'clean_cache_after': 100,
             'database_name': '/tmp/serpscrap',
             'do_caching': True,
-            'num_pages_for_keyword': 1,
+            'num_pages_for_keyword': 10,
             'scrape_urls': True,
             'search_engines': ['google'],
             'google_search_url': 'https://www.google.com/?gl=us&hl=en&pws=0&gws_rd=cr',
@@ -38,7 +37,6 @@ class scrapper():
             for scrap in self.scrap[:]:
                 if scrap["serp_domain"] == domains:
                     self.scrap.remove(scrap)
-                    # todo FIX THIS
         elif '__iter__' in dir(domains):
             for domain in domains:
                 self.remove_from_domain(domain)
@@ -47,15 +45,4 @@ class scrapper():
         return self
 
     def simple(self):
-        simple_scraps = []
-        for result in self.scrap:
-            simple_scrap = {}
-            if "text_raw" in result:
-                simple_scrap["body"] = result["text_raw"]
-            elif "serp_snippet" in result:
-                simple_scrap["body"] = result["serp_snippet"]
-            else:
-                break
-            simple_scrap["title"] = result["serp_domain"]
-            simple_scraps.append(simple_scrap)
-        return simple_scraps
+        return [{'title':result["serp_domain"],'snippet':result["serp_snippet"],'body':result["text_raw"]} for result in self.scrap if "text_raw" in result and result["text_raw"]]

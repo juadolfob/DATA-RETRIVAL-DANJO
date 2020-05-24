@@ -1,34 +1,122 @@
 import re
+text="""2020-05-23 16:30:51,012 - root - INFO - Scraping URL: https://www.infobae.com/tendencias/2020/04/10/cocina-en-cuarentena-ocho-preparaciones-saludables-para-hacer-en-casa/
+2020-05-23 16:30:51,013 - root - INFO - Scraping URL: https://www.infobae.com/tendencias/2020/05/02/ideas-de-snacks-y-colaciones-saludables-para-la-cuarentena/
+2020-05-23 16:30:51,013 - root - INFO - Scraping URL: https://www.abc.es/natural/abci-dieta-mas-sana-y-sostenible-cuarentena-202004220100_noticia.html
+2020-05-23 16:30:51,013 - root - INFO - Scraping URL: https://baptisthealth.net/baptist-health-news/es/como-abastecerse-de-alimentos-saludables-y-sabrosos-durante-la-cuarentena-de-coronavirus/
+2020-05-23 16:30:51,013 - root - INFO - Scraping URL: https://www.elespanol.com/ciencia/nutricion/20200329/cuarentena-mejores-alimentos-evitar-picar-horas/477952989_0.html
+2020-05-23 16:30:51,013 - root - INFO - Scraping URL: https://www.portafolio.co/tendencias/asi-puede-cuidar-su-alimentacion-durante-la-cuarentena-539801
+2020-05-23 16:30:51,014 - root - INFO - Scraping URL: https://www.portafolio.co/tendencias/disminuye-el-interes-por-la-comida-saludable-en-cuarentena-540415
+2020-05-23 16:30:51,014 - root - INFO - Scraping URL: https://www.geriatricarea.com/2020/04/13/recomendaciones-para-cuidar-alimentacion-de-mayores-durante-la-cuarentena/
+2020-05-23 16:30:51,014 - root - INFO - Scraping URL: https://www.telva.com/salud/2020/03/23/5e78d6a901a2f1647d8b45ee.html
+2020-05-23 16:30:51,014 - root - INFO - Scraping URL: https://snsdigital.gob.do/aprovecha-la-cuarentena-para-crear-habitos-alimenticios-saludables/
+2020-05-23 16:30:51,014 - root - INFO - Scraping URL: https://www.ngenespanol.com/salud/10-consejos-nutricionales-para-esta-cuarentena/
+2020-05-23 16:30:51,014 - root - INFO - Scraping URL: https://www.eluniversal.com.mx/menu/cuarentena-alimentos-que-fortalecen-el-sistema-inmunologico
+2020-05-23 16:30:51,441 - root - INFO - Scraping URL: https://www.clarin.com/buena-vida/alimentos-tener-casa-cuarentena-coronavirus_0_nvsKP7-0N.html
+2020-05-23 16:30:51,442 - root - INFO - Scraping URL: https://www.clarin.com/buena-vida/alimentacion-cuarentena-alimentos-evitar-incluir_0_t7GnMXVkF.html
+2020-05-23 16:30:51,443 - root - INFO - Scraping URL: https://www.cocinafacil.com.mx/recetas/recetas-de-comida-saludables/
+2020-05-23 16:30:51,444 - root - INFO - Scraping URL: https://www.unav.edu/documents/29026/0/CUARENTENA+SALUDABLE.pdf
+2020-05-23 16:30:52,426 - root - INFO - Scraping URL: https://www.eufic.org/es/healthy-living/article/10-tips-to-eat-healthy-during-quarantine-or-isolation-covid-19
+2020-05-23 16:30:52,427 - root - INFO - Scraping URL: https://sostenibilidad.semana.com/medio-ambiente/articulo/cuarentena-asi-puede-alimentarse-saludable-y-proteger-el-ambiente/49446
+2020-05-23 16:30:52,427 - root - INFO - Scraping URL: https://cuidateplus.marca.com/alimentacion/nutricion/2020/03/30/consejos-engordar-cuarentena-172563.html
+2020-05-23 16:30:52,428 - root - INFO - Scraping URL: https://www.youtube.com/watch?v=jMvNe3W4fVc
+2020-05-23 16:30:52,428 - root - INFO - Scraping URL: https://www.youtube.com/watch?v=mwU4eHsBWiQ
+2020-05-23 16:30:52,429 - root - INFO - Scraping URL: https://www.youtube.com/watch?v=U9356xsjAGE
+2020-05-23 16:30:52,430 - root - INFO - Scraping URL: https://www.youtube.com/watch?v=XvT1bHGZwoc
+2020-05-23 16:30:52,430 - root - INFO - Scraping URL: https://www.youtube.com/watch?v=KdW5Xq116ZQ
+2020-05-23 16:30:52,431 - root - INFO - Scraping URL: https://www.facebook.com/RTVunmsm/videos/alimentaci%C3%B3n-saludable-en-tiempos-de-cuarentena/267170934323260/
+2020-05-23 16:30:52,431 - root - INFO - Scraping URL: https://www.youtube.com/watch?v=t5rozbWbg8Y
+2020-05-23 16:30:52,432 - root - INFO - Scraping URL: https://www.ngenespanol.com/salud/10-consejos-nutricionales-para-esta-cuarentena/
+2020-05-23 16:30:52,432 - root - INFO - Scraping URL: https://www.eluniversal.com.mx/menu/cuarentena-alimentos-que-fortalecen-el-sistema-inmunologico
+2020-05-23 16:30:52,998 - root - INFO - Scraping URL: https://www.clarin.com/buena-vida/alimentos-tener-casa-cuarentena-coronavirus_0_nvsKP7-0N.html
+2020-05-23 16:30:52,999 - root - INFO - Scraping URL: https://www.clarin.com/buena-vida/alimentacion-cuarentena-alimentos-evitar-incluir_0_t7GnMXVkF.html
+2020-05-23 16:30:53,000 - root - INFO - Scraping URL: https://www.cocinafacil.com.mx/recetas/recetas-de-comida-saludables/
+2020-05-23 16:30:53,001 - root - INFO - Scraping URL: https://www.unav.edu/documents/29026/0/CUARENTENA+SALUDABLE.pdf
+2020-05-23 16:30:54,322 - root - INFO - Scraping URL: https://www.eufic.org/es/healthy-living/article/10-tips-to-eat-healthy-during-quarantine-or-isolation-covid-19
+2020-05-23 16:30:54,323 - root - INFO - Scraping URL: https://sostenibilidad.semana.com/medio-ambiente/articulo/cuarentena-asi-puede-alimentarse-saludable-y-proteger-el-ambiente/49446
+2020-05-23 16:30:54,323 - root - INFO - Scraping URL: https://cuidateplus.marca.com/alimentacion/nutricion/2020/03/30/consejos-engordar-cuarentena-172563.html
+2020-05-23 16:30:54,324 - root - INFO - Scraping URL: https://www.youtube.com/watch?v=mwU4eHsBWiQ
+2020-05-23 16:30:54,324 - root - INFO - Scraping URL: https://www.youtube.com/watch?v=jMvNe3W4fVc
+2020-05-23 16:30:54,325 - root - INFO - Scraping URL: https://www.youtube.com/watch?v=U9356xsjAGE
+2020-05-23 16:30:54,325 - root - INFO - Scraping URL: https://www.youtube.com/watch?v=XvT1bHGZwoc
+2020-05-23 16:30:54,325 - root - INFO - Scraping URL: https://www.youtube.com/watch?v=KdW5Xq116ZQ
+2020-05-23 16:30:54,326 - root - INFO - Scraping URL: https://www.facebook.com/RTVunmsm/videos/alimentaci%C3%B3n-saludable-en-tiempos-de-cuarentena/267170934323260/
+2020-05-23 16:30:54,326 - root - INFO - Scraping URL: https://www.youtube.com/watch?v=t5rozbWbg8Y
+2020-05-23 16:30:54,327 - root - INFO - Scraping URL: https://www.ngenespanol.com/salud/10-consejos-nutricionales-para-esta-cuarentena/
+2020-05-23 16:30:54,327 - root - INFO - Scraping URL: https://www.eluniversal.com.mx/menu/cuarentena-alimentos-que-fortalecen-el-sistema-inmunologico
+2020-05-23 16:30:54,560 - root - INFO - Scraping URL: https://www.clarin.com/buena-vida/alimentos-tener-casa-cuarentena-coronavirus_0_nvsKP7-0N.html
+2020-05-23 16:30:54,561 - root - INFO - Scraping URL: https://www.clarin.com/buena-vida/alimentacion-cuarentena-alimentos-evitar-incluir_0_t7GnMXVkF.html
+2020-05-23 16:30:54,562 - root - INFO - Scraping URL: https://www.cocinafacil.com.mx/recetas/recetas-de-comida-saludables/
+2020-05-23 16:30:54,563 - root - INFO - Scraping URL: https://www.unav.edu/documents/29026/0/CUARENTENA+SALUDABLE.pdf
+2020-05-23 16:30:55,524 - root - INFO - Scraping URL: https://www.eufic.org/es/healthy-living/article/10-tips-to-eat-healthy-during-quarantine-or-isolation-covid-19
+2020-05-23 16:30:55,525 - root - INFO - Scraping URL: https://sostenibilidad.semana.com/medio-ambiente/articulo/cuarentena-asi-puede-alimentarse-saludable-y-proteger-el-ambiente/49446
+2020-05-23 16:30:55,525 - root - INFO - Scraping URL: https://cuidateplus.marca.com/alimentacion/nutricion/2020/03/30/consejos-engordar-cuarentena-172563.html
+2020-05-23 16:30:55,526 - root - INFO - Scraping URL: https://www.youtube.com/watch?v=mwU4eHsBWiQ
+2020-05-23 16:30:55,527 - root - INFO - Scraping URL: https://www.youtube.com/watch?v=jMvNe3W4fVc
+2020-05-23 16:30:55,527 - root - INFO - Scraping URL: https://www.youtube.com/watch?v=U9356xsjAGE
+2020-05-23 16:30:55,528 - root - INFO - Scraping URL: https://www.youtube.com/watch?v=XvT1bHGZwoc
+2020-05-23 16:30:55,528 - root - INFO - Scraping URL: https://www.youtube.com/watch?v=KdW5Xq116ZQ
+2020-05-23 16:30:55,528 - root - INFO - Scraping URL: https://www.facebook.com/RTVunmsm/videos/alimentaci%C3%B3n-saludable-en-tiempos-de-cuarentena/267170934323260/
+2020-05-23 16:30:55,529 - root - INFO - Scraping URL: https://www.youtube.com/watch?v=t5rozbWbg8Y
+2020-05-23 16:30:55,529 - root - INFO - Scraping URL: https://www.infobae.com/tendencias/2020/04/10/cocina-en-cuarentena-ocho-preparaciones-saludables-para-hacer-en-casa/
+2020-05-23 16:30:55,530 - root - INFO - Scraping URL: https://www.infobae.com/tendencias/2020/05/02/ideas-de-snacks-y-colaciones-saludables-para-la-cuarentena/
+2020-05-23 16:30:55,530 - root - INFO - Scraping URL: https://www.abc.es/natural/abci-dieta-mas-sana-y-sostenible-cuarentena-202004220100_noticia.html
+2020-05-23 16:30:55,530 - root - INFO - Scraping URL: https://baptisthealth.net/baptist-health-news/es/como-abastecerse-de-alimentos-saludables-y-sabrosos-durante-la-cuarentena-de-coronavirus/
+2020-05-23 16:30:55,531 - root - INFO - Scraping URL: https://www.elespanol.com/ciencia/nutricion/20200329/cuarentena-mejores-alimentos-evitar-picar-horas/477952989_0.html
+2020-05-23 16:30:55,531 - root - INFO - Scraping URL: https://www.portafolio.co/tendencias/asi-puede-cuidar-su-alimentacion-durante-la-cuarentena-539801
+2020-05-23 16:30:55,532 - root - INFO - Scraping URL: https://www.portafolio.co/tendencias/disminuye-el-interes-por-la-comida-saludable-en-cuarentena-540415
+2020-05-23 16:30:55,532 - root - INFO - Scraping URL: https://www.geriatricarea.com/2020/04/13/recomendaciones-para-cuidar-alimentacion-de-mayores-durante-la-cuarentena/
+2020-05-23 16:30:55,532 - root - INFO - Scraping URL: https://www.telva.com/salud/2020/03/23/5e78d6a901a2f1647d8b45ee.html
+2020-05-23 16:30:55,533 - root - INFO - Scraping URL: https://snsdigital.gob.do/aprovecha-la-cuarentena-para-crear-habitos-alimenticios-saludables/
+2020-05-23 16:30:55,533 - root - INFO - Scraping URL: https://cnnespanol.cnn.com/2020/03/17/que-debes-comprar-para-mantenerte-saludable-y-otras-reglas-para-la-cuarentena-por-coronavirus/
+2020-05-23 16:30:59,401 - root - INFO - Scraping URL: https://www.youtube.com/watch?v=mwU4eHsBWiQ
+2020-05-23 16:30:59,402 - root - INFO - Scraping URL: https://www.youtube.com/watch?v=jMvNe3W4fVc
+2020-05-23 16:30:59,402 - root - INFO - Scraping URL: https://www.radionacional.co/noticia/actualidad/consejos-alimentacion-saludable-cuarentena
+2020-05-23 16:31:01,008 - root - INFO - Scraping URL: https://www.instyle.es/belleza/cuerpo/como-adelgazar-cuarentena-alimentos-que-te-ayudaran_48029
+2020-05-23 16:31:02,667 - root - INFO - Scraping URL: https://www.alimente.elconfidencial.com/nutricion/2020-04-21/trabajar-casa-dieta-saludable-recetas-bra_2525723/
+2020-05-23 16:31:04,922 - root - INFO - Scraping URL: https://www.anahuacmayab.mx/noticias/cocinar-saludable-la-cuarentena
+2020-05-23 16:31:05,961 - root - INFO - Scraping URL: https://donde.co/es/cartagena/articulos/como-alimentarnos-bien-en-cuarentena-45523
+2020-05-23 16:31:20,557 - root - INFO - Scraping URL: https://www.cronista.com/clase/gourmet/Coronavirus-y-alimentacion-7-consejos-de-la-FAO-para-comer-saludable-en-cuarentena--20200326-0002.html
+2020-05-23 16:31:23,101 - root - INFO - Scraping URL: https://www.clinicauandes.cl/noticia/2020/04/13/10-consejos-para-no-subir-de-peso-en-cuarentena
+2020-05-23 16:31:24,984 - root - INFO - Scraping URL: https://www.pinterest.com/search/pins/
+2020-05-23 16:31:31,167 - root - INFO - Scraping URL: https://elpoderdelconsumidor.org/2020/04/habitos-saludables-para-ninas-y-ninos-y-adultos-tambien/
+2020-05-23 16:31:31,530 - root - INFO - Scraping URL: https://realfooding.com/articulo/habitos-y-cuarentena/
+2020-05-23 16:31:32,875 - root - INFO - Scraping URL: https://politica.expansion.mx/sociedad/2020/04/21/tips-para-cuidar-tu-alimentacion-en-la-cuarentena-por-covid-19
+2020-05-23 16:31:34,745 - root - INFO - Scraping URL: https://www.lanuevacronica.com/el-reto-de-mantener-habitos-de-vida-saludables-en-cuarentena
+2020-05-23 16:31:37,203 - root - INFO - Scraping URL: https://www.utalca.cl/noticias/recomiendan-mantener-una-alimentacion-saludable-y-natural-durante-la-cuarentena/
+2020-05-23 16:31:45,081 - root - INFO - Scraping URL: https://www.hola.com/estar-bien/galeria/20200402164648/dieta-alimentos-combatir-ansiedad-cuarentena/1/
+2020-05-23 16:31:47,214 - root - INFO - Scraping URL: https://www.antena2.com/mas-alla-del-deporte/tips-de-nutricion-para-estar-saludable-en-la-cuarentena
+2020-05-23 16:31:50,664 - root - INFO - Scraping URL: https://www.clinicalascondes.cl/BLOG/Listado/coronavirus/cuidar-alimentacion-cuarentena
+2020-05-23 16:32:00,743 - root - INFO - Scraping URL: https://www.pagina12.com.ar/258124-coronavirus-como-cambia-la-alimentacion-en-tiempos-de-cuaren
+2020-05-23 16:32:01,015 - root - INFO - Scraping URL: https://www.dallasnews.com/espanol/al-dia/vida-y-estilo/2020/04/07/5-consejos-para-cuidar-tu-dieta-durante-la-cuarentena-por-coronavirus/
+2020-05-23 16:32:07,108 - root - INFO - Scraping URL: https://escuela.bitacoras.com/2020/04/04/6-claves-para-mantener-una-alimentacion-saludable-en-familia-durante-la-cuarentena/
+2020-05-23 16:32:13,262 - root - INFO - Scraping URL: https://enlinea.santotomas.cl/actualidad-institucional/mundo-santo-tomas/comer-saludable-tiempos-cuarentena/177133/
+2020-05-23 16:32:23,352 - root - INFO - Scraping URL: https://elperuano.pe/noticia-coronavirus-tips-para-mejorar-su-alimentacion-durante-cuarentena-94094.aspx
+2020-05-23 16:32:25,507 - root - INFO - Scraping URL: https://www.diarioinformacion.com/tendencias/2020/03/28/consejos-controlar-dieta-durante-cuarentena/2249974.html
+2020-05-23 16:32:28,125 - root - INFO - Scraping URL: https://noticias.universia.cl/portada/noticia/2020/05/04/1167841/alimentacion-saludable-cuarentena-covid-19.html
+2020-05-23 16:32:31,795 - root - INFO - Scraping URL: https://bogota.gov.co/mi-ciudad/salud/alimentacion-saludable-durante-la-cuarentena-por-el-coronavirus
+2020-05-23 16:32:38,199 - root - INFO - Scraping URL: https://gestion.pe/fotogalerias/actividades-con-ninos-para-fomentar-una-vida-saludable-durante-la-cuarentena-noticia/
+2020-05-23 16:32:39,813 - root - INFO - Scraping URL: http://www.feduba.org.ar/2020/04/10/alimentacion-saludable-en-tiempos-de-cuarentena/
+2020-05-23 16:32:47,210 - root - INFO - Scraping URL: https://canalsalud.imq.es/comer-sano-en-la-cuarentena/
+2020-05-23 16:32:48,112 - root - INFO - Scraping URL: https://www.cocinadelirante.com/tips/tips-para-comer-saludable-en-casa-durante-la-cuarentena-de-coronavirus
+2020-05-23 16:32:51,248 - root - INFO - Scraping URL: https://www.ecoticias.com/vida-saludable/200733/Dietas-habitos-saludables-estas-cuarentena
+2020-05-23 16:32:56,386 - root - INFO - Scraping URL: https://www.msn.com/es-pe/noticias/otras/alimentos-econ%C3%B3micos-y-saludables-para-la-cuarentena/ar-BB12ZySm
+2020-05-23 16:32:57,955 - root - INFO - Scraping URL: https://blog.aegon.es/salud/cinco-alimentos-para-combatir-la-ansiedad-en-tiempos-de-cuarentena/
+2020-05-23 16:33:01,990 - root - INFO - Scraping URL: https://www.prensalibre.com/vida/salud-y-familia/coronavirus-consejos-para-no-subir-de-peso-durante-la-cuarentena/
+2020-05-23 16:33:03,279 - root - INFO - Scraping URL: https://ciudadesamigas.org/alimentacion-infancia-cuarentena/
+2020-05-23 16:33:19,545 - root - INFO - Scraping URL: http://cadenapolitica.com/2020/04/07/alimentacion-saludable-durante-la-cuarentena/
+2020-05-23 16:33:19,832 - root - INFO - Scraping URL: https://www.eluniverso.com/larevista/2020/04/03/nota/7804746/coronavirus-consecuencias-cuarentena-salud-nutricional-alimentos
+2020-05-23 16:33:25,014 - root - INFO - Scraping URL: https://www.elcomercio.com/tendencias/control-porciones-clave-cuarentena-saludable.html
+2020-05-23 16:33:32,322 - root - INFO - Scraping URL: https://www.foodretail.es/especiales/salud_y_nutricion/consejos-alimentacion-cuarentena-coronavirus_0_1420657934.html
+2020-05-23 16:33:34,239 - root - INFO - Scraping URL: https://www.elpais.com.uy/vida-actual/consejos-comer-saludable-compras-responsablemente-cuarentena.html
+2020-05-23 16:33:34,444 - root - INFO - Scraping URL: https://www.ticbeat.com/salud/11-alimentos-para-cuidar-tu-salud-toda-la-cuarentena/
+2020-05-23 16:33:37,606 - root - INFO - Scraping URL: https://www.laregion.es/articulo/salud/guia-habitos-saludables-seguir-cuarentena/20200324165300934682.html
+2020-05-23 16:33:38,323 - root - INFO - Scraping URL: https://www.elespectador.com/coronavirus/como-alimentarse-en-tiempos-de-covid-19-y-cuarentena-articulo-910576
+2020-05-23 16:33:38,784 - root - INFO - Scraping URL: https://www.latimes.com/espanol/california/articulo/2020-03-21/que-hacer-con-los-ninos-en-casa-y-como-balancear-los-alimentos-durante-la-cuarentena
+2020-05-23 16:33:41,506 - root - INFO - Scraping URL: http://wradio.com.mx/radio/2020/03/24/sociedad/1585010759_158508.html
+2020-05-23 16:33:42,715 - root - INFO - Scraping URL: https://ellibero.cl/actualidad/coronavirus-como-tener-una-alimentacion-saludable-en-periodo-de-cuarentena/
+2020-05-23 16:33:43,705 - root - INFO - Scraping URL: https://diariocorreo.pe/edicion/la-libertad/alimentos-saludables-durante-la-cuarentena-937910/
+2020-05-23 16:33:47,368 - root - INFO - Scraping URL: https://www.metalboss.com.mx/cuarentena
+2020-05-23 16:33:50,591 - root - INFO - Scraping URL: https://www.uc.cl/noticias/como-alimentarse-bien-en-esta-cuarentena/"""
 
-from nltk import RegexpTokenizer
-from unidecode import unidecode
-from nltk.corpus import stopwords
-import string
-from nltk.tokenize import word_tokenize
-from nltk.tokenize.casual import _str_to_unicode
-
-
-class Text:
-
-    word = r"""[A-Za-z0-9]*[A-Za-z][A-Za-z0-9]*(?:(?:&|\-|_){0,1}[A-Za-z0-9]+)*"""
-
-    @staticmethod
-    def normalize(text):
-        text = _str_to_unicode(text)
-        text = text.lower()
-        return text
-
-    @staticmethod
-    def tokenize_words(text):
-        tokenizer = RegexpTokenizer(Text.word)
-        return tokenizer.tokenize(text)
-
-    @staticmethod
-    def remove_stopwords(text):
-        if text is str:
-            return Text.remove_stopwords(Text.tokenize(text))
-        elif '__iter__' in dir(text):
-            stop_words = set(stopwords.words('english')).union(set(stopwords.words('spanish')))
-            return [word for word in text if word not in stop_words]
-        else:
-            raise TypeError("Using " + str(type(text)) + ", but only integers are allowed")
+[print(url) for url in re.findall(r"https:.*",text)]
+print()
