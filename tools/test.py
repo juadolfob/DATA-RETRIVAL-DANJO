@@ -1,7 +1,7 @@
 import collections
 from textblob import TextBlob
 from nltk.corpus import stopwords
-from tools.scrapper.scrapper import scrapper
+from scrapper.scrapper import scrapper
 from matplotlib import pyplot as plt
 
 

@@ -2,11 +2,11 @@
 
 from distutils.core import setup
 
-setup(name='Distutils',
+setup(name='',
       version='1.0',
-      description='Python Distribution Utilities',
+      description='',
       author='juadolfob',
-      author_email='gward@python.net',
+      author_email='',
       url='https://www.python.org/sigs/distutils-sig/',
-      packages=['distutils', 'distutils.command'],
+      packages=[''],
       )

@@ -21,11 +21,11 @@ class scrapper():
             'clean_cache_after': 100,
             'database_name': '/tmp/serpscrap',
             'do_caching': True,
-            'num_pages_for_keyword': 10,
+            'num_pages_for_keyword': 1,
             'scrape_urls': True,
             'search_engines': ['google'],
             'google_search_url': 'https://www.google.com/?gl=us&hl=en&pws=0&gws_rd=cr',
-            'executable_path': '/usr/local/bin/chromedriver',
+            'executable_path': '/tools/chromedriver',
         }
         config.apply(config_new)
         scrap = serpscrap.SerpScrap()
